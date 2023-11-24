@@ -1,0 +1,5 @@
+name=Medicine Moodles
+id=MedicineMoodles
+description=
+poster=poster.png
+require=MoodleFramework

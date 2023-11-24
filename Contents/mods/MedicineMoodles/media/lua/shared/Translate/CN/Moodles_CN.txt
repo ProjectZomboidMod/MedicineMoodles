@@ -1,0 +1,3 @@
+Moodles_CN {
+    Moodles_Antidepressants_Bad_desc_lvl1 = "药物需要一些时间才能起效",
+}
