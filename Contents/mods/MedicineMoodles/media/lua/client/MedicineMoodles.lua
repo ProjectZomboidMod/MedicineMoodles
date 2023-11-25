@@ -10,10 +10,10 @@ ModMedicineMoodles = {
     PlayerMoodles = {},
 }
 
-function ModMedicineMoodles:addMedicine(name, item, getValue)
+function ModMedicineMoodles:addMedicine(name, item, getData)
     self.Medicines[name] = {
         item = item,
-        getValue = getValue,
+        getData = getData,
     }
     for playerNum, moodles in pairs(self.PlayerMoodles) do
         self:addMoodle(name, playerNum)
@@ -31,8 +31,8 @@ function ModMedicineMoodles:addMoodle(name, playerNum)
     self:setupMoodle(moodle)
 end
 
-function ModMedicineMoodles:normalize(value)
-    if value > 1 then return 1 end
+function ModMedicineMoodles:duration(value)
+    -- if value > 1 then return 1 end
     if value > 0 then return value end
     return self.MoodleLevels.Hidden
 end
@@ -84,11 +84,15 @@ function ModMedicineMoodles:updateMoodle(moodle)
     if moodle == nil then return end
     local medicine = self.Medicines[moodle.name]
     if medicine == nil then return end
-    local value = medicine.getValue(self, moodle.char)
-    moodle:setValue(value)
+    local duration, intensity = medicine.getData(self, moodle.char)
+    moodle:setValue(duration)
     local level = moodle:getLevel()
     if level > 0 then
-        moodle:setDescription(1, level, getText("IGUI_RemainingPercent", round(value * 100)))
+        local text = getText("IGUI_RemainingPercent", round(duration * 100))
+        if intensity and intensity > 0 then
+            text = getText("IGUI_climate_intensity") .. ": " .. round(intensity, 2) .. " / " .. text
+        end
+        moodle:setDescription(1, level, text)
     end
 end
 
@@ -110,21 +114,25 @@ end
 
 ModMedicineMoodles:onMoodleThresholdsChange()
 ModMedicineMoodles:addMedicine("Antibiotics", "Base.Antibiotics", function(self, player)
-    return self:normalize(player:getReduceInfectionPower() / 50)
+    return self:duration(player:getReduceInfectionPower() / 50)
 end)
 ModMedicineMoodles:addMedicine("Antidepressants", "Base.PillsAntiDep", function(self, player)
     local value = player:getDepressEffect() / 6600
     if value >= 1 then return self.MoodleLevels.Bad[1] end -- before taking effect
-    return self:normalize(value)
+    return self:duration(value)
+    -- , player:getDepressDelta() / 0.3
 end)
 ModMedicineMoodles:addMedicine("BetaBlockers", "Base.PillsBeta", function(self, player)
-    return self:normalize(player:getBetaEffect() / 6600)
+    return self:duration(player:getBetaEffect() / 6600)
+    -- , player:getBetaDelta() / 0.3
 end)
 ModMedicineMoodles:addMedicine("Painkillers", "Base.Pills", function(self, player)
-    return self:normalize(player:getPainEffect() / 5400)
+    return self:duration(player:getPainEffect() / 5400)
+    -- , player:getPainDelta() / 0.45
 end)
 ModMedicineMoodles:addMedicine("SleepingTablets", "Base.PillsSleepingTablets", function(self, player)
-    return self:normalize(player:getSleepingTabletEffect() / 6600)
+    return self:duration(player:getSleepingTabletEffect() / 6600),
+        player:getSleepingTabletDelta() / 0.1
 end)
 
 Events.OnCreatePlayer.Add(ModMedicineMoodles.onCreatePlayer)
