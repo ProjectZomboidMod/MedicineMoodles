@@ -1,0 +1,9 @@
+Sandbox_EN = {
+    Sandbox_MedicineMoodles = "Medicine Moodles",
+    Sandbox_MedicineMoodles_Antibiotics_Doctor = "Antibiotics require First Aid",
+    Sandbox_MedicineMoodles_Antidepressants_Doctor = "Antidepressants require First Aid",
+    Sandbox_MedicineMoodles_BetaBlockers_Doctor = "BetaBlockers require First Aid",
+    Sandbox_MedicineMoodles_Painkillers_Doctor = "Painkillers require First Aid",
+    Sandbox_MedicineMoodles_SleepingTablets_Doctor = "SleepingTablets require First Aid",
+    Sandbox_MedicineMoodles_LemonGrass_Doctor = "LemonGrass require First Aid",
+}

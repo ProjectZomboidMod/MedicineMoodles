@@ -1,0 +1,49 @@
+VERSION = 1,
+
+option MedicineMoodles.Antibiotics_Doctor
+{
+    type = integer, default = 6,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_Antibiotics_Doctor,
+}
+
+option MedicineMoodles.Antidepressants_Doctor
+{
+    type = integer, default = 4,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_Antidepressants_Doctor,
+}
+
+option MedicineMoodles.BetaBlockers_Doctor
+{
+    type = integer, default = 2,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_BetaBlockers_Doctor,
+}
+
+option MedicineMoodles.Painkillers_Doctor
+{
+    type = integer, default = 1,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_Painkillers_Doctor,
+}
+
+option MedicineMoodles.SleepingTablets_Doctor
+{
+    type = integer, default = 3,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_SleepingTablets_Doctor,
+}
+
+option MedicineMoodles.LemonGrass_Doctor
+{
+    type = integer, default = 5,
+    min = 0, max = 11,
+    page = MedicineMoodles,
+    translation = MedicineMoodles_LemonGrass_Doctor,
+}

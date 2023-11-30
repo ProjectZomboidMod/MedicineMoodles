@@ -1,5 +1,5 @@
 name=Medicine Moodles
 id=MedicineMoodles
-description=
+description=Tell you duration of pills.
 poster=poster.png
 require=MoodleFramework
